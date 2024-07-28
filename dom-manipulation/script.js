@@ -22,22 +22,44 @@ function showRandomQuote() {
 
 }
 
+//Add form section
+function createAddQuoteForm() {
+    const formContainer = document.createElement('div');
+
+    const textInput = document.createElement('input');
+    textInput.id = 'newQuoteText';
+    textInput.type = 'text';
+    textInput.placeholder = 'Enter a new quote';
+    formContainer.appendChild(textInput);
+
+    const categoryInput = document.createElement('input');
+    categoryInput.id = 'newQuoteCategory';
+    categoryInput.type = 'text';
+    categoryInput.placeholder = 'Enter quote category';
+    formContainer.appendChild(categoryInput);
+
+    const submitButton = document.createElement('button');
+    submitButton.textContent = 'Add Quote';
+    submitButton.type = 'button';
+    submitButton.addEventListener('click', addQuote);
+    formContainer.appendChild(submitButton);
+
+    // Append the form container to the body or a specific container element
+    document.body.appendChild(formContainer);
+}
 
 //New Quote 
 function addQuote() {
-    const textInput = document.getElementById("newQuoteText");
-    const categoryInput = document.getElementById("newQuoteCategory");
+    const newText = document.getElementById('newQuoteText').value.trim();
+        const newCategory = document.getElementById('newQuoteCategory').value.trim();
 
-    const text = textInput.value.trim();
-    const category = categoryInput.value.trim();
-
-    if (text && category) {
-        const newAddedquote = {text, category};
+    if (newText && newCategory) {
+        const newAddedquote = {text: newText, category: newCategory};
         quote.push(newAddedquote);
         displayQuote.innerHTML = `"${newAddedquote.text}" - ${newAddedquote.category}`;
 
-        textInput.value = '';
-        categoryInput.value = '';
+        document.getElementById('newQuoteText').value = '';
+        document.getElementById('newQuoteCategory').value = '';
     }else {
         alert('Please enter both a quote and a category.');
     }
